@@ -1,18 +1,12 @@
-# Car-Python-Lab
-#!/usr/bin/env python3
-#Johann Silvanus
-#11/06/18
-# A position tracking program for a car racing game
+#! /usr/bin/env python3
 
-# A class to represent a car
 class Car:
-    def __init__(self, start_pos, speed):
-        #1 from the lab, set internal class attributes
+    def __init__(self, start_pos, speed, driver):
         self.start_pos = start_pos
         self.speed = speed
+        self.driver = driver
 
     def drive(self, time, direction):
-        #2 from the lab, implement the method to move the car forward and backward
         self.time=time
         if direction == 'forward':
             self.start_pos += self.speed * self.time
@@ -20,34 +14,50 @@ class Car:
             self.start_pos -= self.speed * self.time
 
     def printPosition(self):
-        # This prints the current position of the car
         print("The car is currently at position " + str(self.start_pos))
 
-# Code to test your car
+    def setDriver(self, driver):
+        self.driver = driver
+
+    def getDriver(self):
+        return self.driver
+
+class driver:
+    def __init__(self, name, age, licenseType):
+        self.name = name
+        self.age = age
+        self.licenseType = licenseType
+
+    def setName(self, name):
+        self.name = name
+
+    def setAge(self, age):
+        self.age = age
+
+    def setLicenseType(self, licenseType):
+        self.licenseType = licenseType
+
+    def getName(self):
+        return self.name
+
+    def getAge(self):
+        return self.age
+
+    def getLicenseType(self):
+        return self.licenseType
+
+    def printName(self):
+        print("The driver's name is " + self.name)
+
 def main():
-    # I instantiate one car and do some actions to test the class
-    myCar = Car(2, 3)
+    myDriver = driver("Tom", 21, "Full")
+    myCar = Car(2, 3, myDriver)
+    myCar.getDriver().printName()
     myCar.printPosition()
     myCar.drive(3, 'forward')
     myCar.printPosition()
     myCar.drive(2, 'backward')
     myCar.printPosition()
 
-    # You must create a new instance of car here starting at position 0 with 
-    # speed 4 and move it three times: First move it 5 forward, then 3 backward, 
-    # then 6 forward. Be sure to print the position after creating the car
-    # and again after each move
-
-    newCar = Car(0,4)
-    newCar.printPosition()
-    newCar.drive(5, 'forward')
-    newCar.printPosition()
-    newCar.drive(3, 'backward')
-    newCar.printPosition()
-    newCar.drive(6, 'forward')
-    newCar.printPosition()
-
-# Calls the main function if the program isn't loaded as a module
 if __name__ == "__main__":
     main()
-
