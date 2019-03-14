@@ -23,10 +23,12 @@ class Car:
         return self.driver
 
 class driver:
-    def __init__(self, name, age, licenseType):
+    def __init__(self, name, age, licenseType, wears_seatbelt):
         self.name = name
         self.age = age
         self.licenseType = licenseType
+        self.wears_seatbelt = wears_seatbelt
+        bool(self.wears_seatbelt)
 
     def setName(self, name):
         self.name = name
@@ -49,9 +51,38 @@ class driver:
     def printName(self):
         print("The driver's name is " + self.name)
 
+    def toggleSeatbelt(self):
+        if self.wears_seatbelt == True:
+            self.wears_seatbelt == False
+        else:
+            self.wears_seatbelt == True
+
+class raceCar(Car):
+    def __init__(self, start_pos, speed, driver, top_speed):
+        self.top_speed = top_speed
+        super().__init__(start_pos, speed, driver)
+        
+
+    def atTopSpeed(self):
+        if self.speed >= self.top_speed:
+            return True
+
+    def drive(self, time, direction):
+        if not self.atTopSpeed() or time <= 3:
+            super().drive(time, direction)
+
+        else:
+            print("Overheating, cannot move.")
+
+        if self.driver.wears_seatbelt == True:
+            super().drive(time, direction)
+
+        else:
+            print("Wear a seatbelt!")
+
 def main():
-    myDriver = driver("Tom", 21, "Full")
-    myCar = Car(2, 3, myDriver)
+    myDriver = driver("Tom", 21, "Full", True)
+    myCar = raceCar(2, 3, myDriver, 5)
     myCar.getDriver().printName()
     myCar.printPosition()
     myCar.drive(3, 'forward')
